@@ -24,7 +24,7 @@ describe('webmention-verifier', function() {
 
   it('should return status code 400 if the target domain is not accepted by this receiver', function() {
     const expected={statusCode: 400,body: "Target domain is not accepted by this server",};
-    const actual = verifier('https://www.google.com','https://www.duckduckgo.com','duckduckgo.com');
+    const actual = verifier('https://www.duckduckgo.com','https://www.google.com','www.duckduckgo.com');
     assert.deepEqual(actual,expected);
   });
 
