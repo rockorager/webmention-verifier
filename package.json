@@ -1,0 +1,30 @@
+{
+  "name": "webmention-verifier",
+  "version": "1.0.0",
+  "description": "A node.js webmention verifier",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rockorager/webmention-verifier.git"
+  },
+  "keywords": [
+    "webmention",
+    "indieweb"
+  ],
+  "author": "Tim Culverhouse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rockorager/webmention-verifier/issues"
+  },
+  "homepage": "https://github.com/rockorager/webmention-verifier#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "mocha": "^9.0.0"
+  }
+}
