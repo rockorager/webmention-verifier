@@ -26,24 +26,28 @@ describe('util.findTarget()', function() {
   it('should find in-reply-to', function() {
     const jf2 = {'in-reply-to': 'https://www.duckduckgo.com'}
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
+    assert.equal(res.targetInSource, true);
     assert.equal(res.mention["in-reply-to"], 'https://www.duckduckgo.com');
   });
 
   it('should find like-of', function() {
     const jf2 = {'like-of': 'https://www.duckduckgo.com'}
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
+    assert.equal(res.targetInSource, true);
     assert.equal(res.mention["like-of"], 'https://www.duckduckgo.com');
   });
 
   it('should find repost-of', function() {
     const jf2 = {'repost-of': 'https://www.duckduckgo.com'}
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
+    assert.equal(res.targetInSource, true);
     assert.equal(res.mention["repost-of"], 'https://www.duckduckgo.com');
   });
 
   it('should find bookmark-of', function() {
     const jf2 = {'bookmark-of': 'https://www.duckduckgo.com'}
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
+    assert.equal(res.targetInSource, true);
     assert.equal(res.mention["bookmark-of"], 'https://www.duckduckgo.com');
   });
 

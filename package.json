@@ -22,9 +22,11 @@
   "homepage": "https://github.com/rockorager/webmention-verifier#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "microformat-node": "^2.0.1",
     "url": "^0.11.0"
   },
   "devDependencies": {
+    "jshint": "^2.13.0",
     "mocha": "^9.0.0"
   }
 }

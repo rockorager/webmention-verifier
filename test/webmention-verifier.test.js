@@ -34,6 +34,9 @@ describe('webmention-verifier', function() {
     assert.deepEqual(actual,expected);
   });
 
+//test for jf2 children array
+// test for jf2 card in array
+// test(s?) for adding author if h-card not there
 
 
 })
