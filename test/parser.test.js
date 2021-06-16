@@ -54,5 +54,18 @@ describe('parser()', function() {
     assert.deepEqual(actual,expected);
   });
 
+it('should parse u-in-reply-to with an rsvp', function() {
+    expected = JSON.parse(`
+      { 
+        "in-reply-to": "https://www.duckduckgo.com",
+        "name": "DuckDuckGo",
+        "type": "entry",
+        "url": "https://www.duckduckgo.com",
+        "rsvp": "yes"
+      }`);
+    const testHtml = '<div class="h-entry"><a class="u-in-reply-to" href="https://www.duckduckgo.com">DuckDuckGo</a><data class="p-rsvp" value="yes"></data></div>';
+    const actual = parser(testHtml,'http://example.org');
+    assert.deepEqual(actual,expected);
+  });
 
 });

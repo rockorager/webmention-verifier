@@ -24,17 +24,19 @@ describe('util.validUrl()', function(){
 
 describe('util.findTarget()', function() {
   it('should find in-reply-to', function() {
-    const jf2 = {'in-reply-to': 'https://www.duckduckgo.com'};
+    const jf2 = {"in-reply-to": "https://www.duckduckgo.com","content": {"html": "<a href=\"https:\/\/www.duckduckgo.com\" class=\"u-in-reply-to\">duckduckgo</a>"}};
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
     assert.equal(res.targetInSource, true);
     assert.equal(res.mention["in-reply-to"], 'https://www.duckduckgo.com');
+    assert.equal(res.mention["wm-property"], 'in-reply-to');
   });
 
   it('should find like-of', function() {
-    const jf2 = {'like-of': 'https://www.duckduckgo.com'}
+    const jf2 = {"like-of": "https://www.duckduckgo.com","content": {"html": "<a href=\"https:\/\/www.duckduckgo.com\" class=\"u-like-of\">duckduckgo</a>"}}
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
     assert.equal(res.targetInSource, true);
     assert.equal(res.mention["like-of"], 'https://www.duckduckgo.com');
+    assert.equal(res.mention["wm-property"], 'like-of');
   });
 
   it('should find repost-of', function() {
@@ -42,6 +44,7 @@ describe('util.findTarget()', function() {
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
     assert.equal(res.targetInSource, true);
     assert.equal(res.mention["repost-of"], 'https://www.duckduckgo.com');
+    assert.equal(res.mention["wm-property"], 'repost-of');
   });
 
   it('should find bookmark-of', function() {
@@ -49,17 +52,27 @@ describe('util.findTarget()', function() {
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
     assert.equal(res.targetInSource, true);
     assert.equal(res.mention["bookmark-of"], 'https://www.duckduckgo.com');
+    assert.equal(res.mention["wm-property"], 'bookmark-of');
   });
 
   it('should find mention-of', function() {
-    const jf2 = {'randomProperty': 'https://www.duckduckgo.com'};
+    const jf2 = {"content": {"html": "<a href=\"https:\/\/www.duckduckgo.com\">duckduckgo</a>"}};
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
     assert.equal(res.targetInSource, true);
     assert.equal(res.mention["mention-of"], 'https://www.duckduckgo.com');
+    assert.equal(res.mention["wm-property"], 'mention-of');
+  });
+
+  it('should find arbitrary', function() {
+    const jf2 = {"arbitrary": "https://www.duckduckgo.com","content": {"html": "<a href=\"https:\/\/www.duckduckgo.com\" class=\"u-arbitrary\">duckduckgo</a>"}};;
+    const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
+    assert.equal(res.targetInSource, true);
+    assert.equal(res.mention["arbitrary"], 'https://www.duckduckgo.com');
+    assert.equal(res.mention["wm-property"], 'arbitrary');
   });
 
   it('should return false if target not found', function() {
-    const jf2 = {'randomProperty': 'https://www.duckduckgo.com'};
+    const jf2 = {"content": {"html": "<a href=\"https:\/\/www.duckduckgo.com\">duckduckgo</a>"}};
     const res = util.findTarget(jf2, 'not the target');
     assert.equal(res.targetInSource, false);
   });
