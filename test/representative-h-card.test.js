@@ -16,7 +16,7 @@ describe('representative-h-card()', function() {
     assert.equal(hcard(data),false);
   });
 
-  it('should return one h-card if one h-card is sent', function() {
+  it('should return two h-cards if two h-card are sent, nested', function() {
     const data = {
     "items": [{
         "type": ["h-card"],
@@ -36,6 +36,7 @@ describe('representative-h-card()', function() {
     "rels": {},
     "rel-urls": {}
 		};
+    console.log(hcard(data));
     assert.deepEqual(hcard(data),data.items[0]);
   });
   
