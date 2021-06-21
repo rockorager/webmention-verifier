@@ -15,10 +15,10 @@ describe('util.fetchHtml()', async function() {
 
 describe('util.validUrl()', function(){
   it('should return true when a valid url is passed', function() {
-    assert.equal(util.validUrl('https://www.duckduckgo.com'), true);
+    assert.equal(util.isUrl('https://www.duckduckgo.com'), true);
   });
   it('should return false when an invalid url is passed', function() {
-    assert.equal(util.validUrl('This is not a URL'), false);
+    assert.equal(util.isUrl('This is not a URL'), false);
   });
 });
 
