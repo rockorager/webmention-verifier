@@ -109,4 +109,15 @@ describe('webmention-verifier', function() {
     assert.equal(actual.author.name,"Virginia Woolf");
   });
 
+// LIVE TESTS, MAY BEGIN TO FAIL SOMEDAY
+  it('should find author as Webmention Rocks!', async function() {
+    const actual = await verifier('https://gregorlove.com/2021/05/i-have-been-using-sublime/','https://www.timculverhouse.com/articles/2021-05-21-text-editors.html');
+    assert.equal(actual.author.name,"gRegor Morrill");
+  });
+
+  it('should find author as Webmention Rocks!', async function() {
+    const actual = await verifier('https://micro.blog/jean/11454935','https://www.timculverhouse.com/notes/2021-05-15-080000.html');
+    assert.equal(actual.author.name,"jean");
+  });
+
 });
