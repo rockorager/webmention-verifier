@@ -72,11 +72,8 @@ describe('representative-h-card()', function() {
         "h-entry"
       ],
       "properties": {
-        "published": [
-          "2021-06-05 20:18:36+0000"
-        ],
         "url": [
-          "https://www.timculverhouse.com/notes/2021-06-05-151836.html"
+          "https://www.timculverhouse.com/notes/this-is-not-a-real-url.html"
         ],
         "author": [
           {
@@ -101,12 +98,12 @@ describe('representative-h-card()', function() {
           }
         ],
         "name": [
-          "\"Culverhouse Island\"\n Culverhouse Island"
+          "Not a real post"
         ],
         "content": [
           {
-            "value": "\"Culverhouse Island\"",
-            "html": "<p>\"Culverhouse Island\"\n<img src=\"https://www.timculverhouse.com/assets/img/IMG_0719.jpeg\" alt=\"Culverhouse Island\"></p>\n"
+            "value": "Not a real post",
+            "html": "<p>This is just for testing</p>"
           }
         ]
       }
@@ -124,11 +121,8 @@ describe('representative-h-card()', function() {
         "h-entry"
       ],
       "properties": {
-        "published": [
-          "2021-06-05 20:18:36+0000"
-        ],
         "url": [
-          "https://www.timculverhouse.com/notes/2021-06-05-151836.html"
+          "https://www.timculverhouse.com/notes/this-is-not-a-real-url.html"
         ],
         "author": [
           {
@@ -150,12 +144,12 @@ describe('representative-h-card()', function() {
           }
         ],
         "name": [
-          "\"Culverhouse Island\"\n Culverhouse Island"
+          "Not a real post"
         ],
         "content": [
           {
-            "value": "\"Culverhouse Island\"",
-            "html": "<p>\"Culverhouse Island\"\n<img src=\"https://www.timculverhouse.com/assets/img/IMG_0719.jpeg\" alt=\"Culverhouse Island\"></p>\n"
+            "value": "Not a real post",
+            "html": "<p>This is just for testing</p>"
           }
         ]
       }
