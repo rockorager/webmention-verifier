@@ -86,7 +86,27 @@ describe('webmention-verifier', function() {
     const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
     assert.equal(actual.author.name,"Homer");
   });
-// test(s?) for adding author if h-card not there
+  it('should find author as Pata&ntilde;jali from embedded h-card, not from rel-author page', async function() {
+    const data = fs.readFileSync('./test/data/author-with-embedded-h-card-and-rel-author.html');
+    const scope = nock('https://www.example.com')
+      .get('/post.html')
+      .reply(200, data);
 
+    const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
+    assert.equal(actual.author.name,"Patañjali");
+  });
+
+  it('should find author as Virginia Woolf from rel-author page', async function() {
+    const data = fs.readFileSync('./test/data/only-rel-author-link.html');
+    const data2 = fs.readFileSync('./test/data/virginia-woolf.html');
+    const scope = nock('https://www.example.com')
+      .get('/post.html')
+      .reply(200, data)
+      .get('/virginia-woolf.html')
+      .reply(200,data2);
+
+    const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
+    assert.equal(actual.author.name,"Virginia Woolf");
+  });
 
 });
