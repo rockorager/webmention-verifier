@@ -24,7 +24,7 @@ describe('parser()', function() {
       </div>
     `;
 
-    const actual = parser(testHtml,'http://example.org');
+    const actual = parser.jf2(testHtml,'http://example.org');
     assert.deepEqual(actual,expected);
   });
 
@@ -34,10 +34,10 @@ describe('parser()', function() {
         "in-reply-to": "https://www.duckduckgo.com",
         "name": "DuckDuckGo",
         "type": "entry",
-        "url": "https://www.duckduckgo.com"
+        "url": "https://www.replying-to-ddg.com"
       }`);
-    const testHtml = '<div class="h-entry"><a class="u-in-reply-to" href="https://www.duckduckgo.com">DuckDuckGo</a></div>';
-    const actual = parser(testHtml,'http://example.org');
+    const testHtml = '<div class="h-entry"><a class="u-url" href="https://www.replying-to-ddg.com"></a><a class="u-in-reply-to" href="https://www.duckduckgo.com">DuckDuckGo</a></div>';
+    const actual = parser.jf2(testHtml,'https://www.replying-to-ddg.com');
     assert.deepEqual(actual,expected);
   });
 
@@ -50,7 +50,7 @@ describe('parser()', function() {
         "url": "https://www.duckduckgo.com"
       }`);
     const testHtml = '<div class="h-entry"><a class="u-arbitrary" href="https://www.duckduckgo.com">DuckDuckGo</a></div>';
-    const actual = parser(testHtml,'http://example.org');
+    const actual = parser.jf2(testHtml,'https://www.duckduckgo.com');
     assert.deepEqual(actual,expected);
   });
 
@@ -64,7 +64,7 @@ it('should parse u-in-reply-to with an rsvp', function() {
         "rsvp": "yes"
       }`);
     const testHtml = '<div class="h-entry"><a class="u-in-reply-to" href="https://www.duckduckgo.com">DuckDuckGo</a><data class="p-rsvp" value="yes"></data></div>';
-    const actual = parser(testHtml,'http://example.org');
+    const actual = parser.jf2(testHtml,'https://www.duckduckgo.com');
     assert.deepEqual(actual,expected);
   });
 

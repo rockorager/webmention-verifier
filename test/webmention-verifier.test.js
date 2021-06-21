@@ -37,37 +37,56 @@ describe('webmention-verifier', function() {
   });
 
   it('should return status code 400 if source does not mention target', async function() {
-    const data = fs.readFileSync('./test/data/webmention-verifier-multiple-h-entry.html')
+    const data = fs.readFileSync('./test/data/webmention-verifier-multiple-h-entry.html');
     const scope = nock('https://www.example.com')
       .get('/post.html')
-      .reply(200, data)
+      .reply(200, data);
 
     const actual = await verifier('https://www.example.com/post.html','https://www.notmentioned.com');
-    assert.equal(actual.statusCode,400)
+    assert.equal(actual.statusCode,400);
   });
   it('should find in-reply-to', async function() {
-    const data = fs.readFileSync('./test/data/webmention-verifier-single-h-entry.html')
+    const data = fs.readFileSync('./test/data/webmention-verifier-single-h-entry.html');
     const scope = nock('https://www.example.com')
       .get('/post.html')
-      .reply(200, data)
+      .reply(200, data);
 
     const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
-    assert.equal(actual["in-reply-to"],"https://www.duckduckgo.com")
+    assert.equal(actual["in-reply-to"],"https://www.duckduckgo.com");
+    assert.equal(actual["wm-property"],"in-reply-to");
   });
 
   it('should find in-reply-to with multiple h-entries', async function() {
-    const data = fs.readFileSync('./test/data/webmention-verifier-multiple-h-entry.html')
+    const data = fs.readFileSync('./test/data/webmention-verifier-multiple-h-entry.html');
     const scope = nock('https://www.example.com')
       .get('/post.html')
-      .reply(200, data)
+      .reply(200, data);
 
     const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
-    assert.equal(actual["in-reply-to"],"https://www.duckduckgo.com")
+    assert.equal(actual["in-reply-to"],"https://www.duckduckgo.com");
+    assert.equal(actual["wm-property"],"in-reply-to");
   });
 
-// test for jf2 children array
-// test for jf2 card in array
+   it('should find author as William Shakespeare with only p-author', async function() {
+    const data = fs.readFileSync('./test/data/webmention-verifier-single-h-entry.html');
+    const scope = nock('https://www.example.com')
+      .get('/post.html')
+      .reply(200, data);
+
+    const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
+    assert.equal(actual.author,"William Shakespeare");
+  });
+
+   it('should find author as Homer from embedded h-card', async function() {
+    const data = fs.readFileSync('./test/data/author-with-embedded-h-card.html');
+    const scope = nock('https://www.example.com')
+      .get('/post.html')
+      .reply(200, data);
+
+    const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
+    assert.equal(actual.author.name,"Homer");
+  });
 // test(s?) for adding author if h-card not there
 
 
-})
+});
