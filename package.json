@@ -2,7 +2,7 @@
   "name": "webmention-verifier",
   "version": "1.0.0",
   "description": "A node.js webmention verifier",
-  "main": "index.js",
+  "main": "lib/webmention-verifier",
   "scripts": {
     "test": "mocha"
   },
@@ -14,7 +14,11 @@
     "webmention",
     "indieweb"
   ],
-  "author": "Tim Culverhouse",
+  "author": {
+    "name": "Tim Culverhouse",
+    "email": "tim@timculverhouse.com",
+    "url": "https://www.timculverhouse.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rockorager/webmention-verifier/issues"
