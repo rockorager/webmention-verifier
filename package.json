@@ -26,6 +26,7 @@
   "homepage": "https://github.com/rockorager/webmention-verifier#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "cheerio": "^0.22.0",
     "microformat-node": "^2.0.1",
     "representative-h-card": "^1.0.0",
     "url": "^0.11.0"

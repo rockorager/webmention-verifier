@@ -25,7 +25,7 @@ describe('parser()', function() {
     `;
 
     const actual = parser.jf2(testHtml,'http://example.org');
-    assert.deepEqual(actual,expected);
+    assert.deepEqual(actual.children[0],expected);
   });
 
   it('should parse u-in-reply-to', function() {
@@ -38,7 +38,7 @@ describe('parser()', function() {
       }`);
     const testHtml = '<div class="h-entry"><a class="u-url" href="https://www.replying-to-ddg.com"></a><a class="u-in-reply-to" href="https://www.duckduckgo.com">DuckDuckGo</a></div>';
     const actual = parser.jf2(testHtml,'https://www.replying-to-ddg.com');
-    assert.deepEqual(actual,expected);
+    assert.deepEqual(actual.children[0],expected);
   });
 
   it('should parse u-arbitrary', function() {
@@ -51,7 +51,19 @@ describe('parser()', function() {
       }`);
     const testHtml = '<div class="h-entry"><a class="u-arbitrary" href="https://www.duckduckgo.com">DuckDuckGo</a></div>';
     const actual = parser.jf2(testHtml,'https://www.duckduckgo.com');
-    assert.deepEqual(actual,expected);
+    assert.deepEqual(actual.children[0],expected);
+  });
+
+  it('should parse u-arbitrary when in <img> tag', function() {
+    expected = JSON.parse(`
+      { 
+        "arbitrary": "https://www.duckduckgo.com",
+        "type": "entry",
+        "photo": "https://www.duckduckgo.com"
+      }`);
+    const testHtml = '<div class="h-entry"><img class="u-arbitrary" src="https://www.duckduckgo.com"></div>';
+    const actual = parser.jf2(testHtml,'https://www.duckduckgo.com');
+    assert.deepEqual(actual.children[0],expected);
   });
 
 it('should parse u-in-reply-to with an rsvp', function() {
@@ -65,7 +77,14 @@ it('should parse u-in-reply-to with an rsvp', function() {
       }`);
     const testHtml = '<div class="h-entry"><a class="u-in-reply-to" href="https://www.duckduckgo.com">DuckDuckGo</a><data class="p-rsvp" value="yes"></data></div>';
     const actual = parser.jf2(testHtml,'https://www.duckduckgo.com');
-    assert.deepEqual(actual,expected);
+    assert.deepEqual(actual.children[0],expected);
+  });
+
+it('return an mf2 object with property links', function() {
+    const testHtml = '<div><a href="https://www.duckduckgo.com">DuckDuckGo</a><a href="/another-link">Link</a></div>';
+    const res = parser.jf2(testHtml,'https://www.duckduckgo.com');
+    console.log(res);
+    assert.equal(res.link.includes("https://www.duckduckgo.com"),true);
   });
 
 });

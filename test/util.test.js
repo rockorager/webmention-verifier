@@ -76,4 +76,12 @@ describe('util.findTarget()', function() {
     const res = util.findTarget(jf2, 'not the target');
     assert.equal(res.targetInSource, false);
   });
+
+  it('should find link', function() {
+    const jf2 = {"link": ["https://www.duckduckgo.com"]};
+    const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
+    assert.equal(res.targetInSource, true);
+    assert.equal(res.mention["link"], 'https://www.duckduckgo.com');
+    assert.equal(res.mention["wm-property"], 'link');
+  });
 });
