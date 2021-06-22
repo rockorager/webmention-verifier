@@ -33,13 +33,13 @@ It **wont**:
 - ❌ Process the request asynchronously (more below) ([should](https://www.w3.org/TR/webmention/#receiving-webmentions-p-1))
 - ❌ Limit the number of redirects during the `GET` request on `source` ([should](https://www.w3.org/TR/webmention/#webmention-verification-p-3))
 - ❌ Store the webmention anywhere
-- ❌ Check `source` against a bannedlist
+- ❌ Check `source` against a blocklist (I will add this at some point)
 
 ### Inputs
 - `source`: (String) URL of the source of the webmention
 - `target`: (String) URL of the target of the webmention
 - `acceptableHosts`: (Array of strings, optional) domains that are accepted by this webmention receiver. Should not include protocols (`https://`). Example: 
-  `['www.timculverhouse.com', 'sub-domain.domain.tld']`
+  `['www.timculverhouse.com', 'timculverhouse.com', 'sub-domain.domain.tld']`
 
 ### Outputs
 
@@ -52,6 +52,11 @@ The webmention will be a [JF2](https://jf2.spec.indieweb.org/) object, which wil
 - `wm-source`: Equal to `source`
 - `wm-target`: Equal to `target`
 - `wm-property`: Equal to the type of webmention ("in-reply-to","like-of","arbitrary-value")
+
+### Synchronous vs Asynchronous processing
+This verifier does all it's check synchronously. This is not recommended by the spec, but it is not capable of knowing how to form a location URL for you to respond to the sender with. So it doesn't do that.
+
+It would be possible to add an option to have the verifier respond in an async matter (do what it can without fetching, respond with a code, and you handle the location URL crafting on your end while it finishes up verification);.
 
 ## Things to do on your end
 1. Assign an ID
