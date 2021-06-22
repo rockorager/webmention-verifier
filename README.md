@@ -58,6 +58,77 @@ This verifier does all it's check synchronously. This is not recommended by the 
 
 It would be possible to add an option to have the verifier respond in an async matter (do what it can without fetching, respond with a code, and you handle the location URL crafting on your end while it finishes up verification);.
 
+## Example
+
+HTML (`source` = https://www.example.com/post.html, `target` = "https://www.duckduckgo.com"):
+```html
+<html>
+  <head>
+    <title>Single h-Entry</title>
+  </head>
+  <body>
+    <article class="h-entry">
+      <h1 class="p-name">Article Title</h1>
+      <section class="e-content">
+      <a href="https://www.duckduckgo.com" class="u-in-reply-to">DuckDuckgo</a>
+      This is some content
+    </section>
+    </article>
+    <a href="https://www.example.com/virginia-woolf.html" rel="author">about Virginia Woolf</a>
+  </body>
+</html>
+```
+Javascript:
+```js
+const wmverifier = require('webmention-verifier');
+
+const res = wmverifier('https://www.example.com/some-post', 'https://www.duckduckgo.com');
+
+console.log(res);
+/* Output
+{
+  statusCode: 200,
+  body: 'Webmention verified',
+  webmention: {
+    type: 'entry',
+    name: 'Article Title',
+    content: {
+      html: '\n' +
+        '      <a href="https://www.duckduckgo.com" class="u-in-reply-to">DuckDuckgo</a>\n' +
+        '      This is some content\n' +
+        '    ',
+      text: 'DuckDuckgo\n      This is some content'
+    },
+    'in-reply-to': 'https://www.duckduckgo.com',
+    'wm-property': 'in-reply-to',
+    'wm-target': 'https://www.duckduckgo.com',
+    'wm-source': 'https://www.example.com/post.html',
+    'wm-received': '2021-06-22T14:28:25.229Z',
+    author: {
+      type: 'card',
+      url: 'https://www.example.com/virginia-woolf.html',
+      photo: 'https://www.example.com/images/virginia-woolf.jpg',
+      name: 'Virginia Woolf'
+    }
+  }
+}
+*/
+```
+
+If we change the call to wmverifierto be a different `target` to trigger a rejection, we get:
+```js
+var res = wmverifier('https://www.example.com/some-post', 'https://www.not-mentioned.com');
+
+console.log(res);
+/* Output
+{
+  statusCode: 400,
+  body: 'Source does not mention target',
+  webmention: false
+}
+*/
+```
+
 ## Things to do on your end
 1. Assign an ID
   [webmention.io](https://webmention.io) uses "wm-id" as the key, and I would stick with that. However you decide to do that is up to you (hash, increment, etc)
