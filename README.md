@@ -1,6 +1,4 @@
 # webmention-verifier
-// add build tags here
-
 A Node.js webmention verifier
 
 ## Installation
@@ -139,4 +137,5 @@ console.log(res);
 4. Return the statusCode and body to the sender
 
 ## Future Features
-- blocklist
+- blocklist support
+- pingback support
