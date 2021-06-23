@@ -115,7 +115,6 @@ describe('webmention-verifier', function() {
       .get('/post.html')
       .reply(200, data);
     const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
-    console.log(actual);
     assert.equal(actual.webmention.hasOwnProperty("mention-of"),true);
   });
 
