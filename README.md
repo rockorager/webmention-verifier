@@ -14,7 +14,9 @@ Webmention Verifier will mostly verify webmentions per the [W3c specification](h
 ```js
 const wmverifier = require('webmention-verifier');
 
-const webmention = wmverifier(source, target[, acceptableHosts]);
+module.exports = async function () {
+  const webmention = await wmverifier(source, target[, acceptableHosts]);
+}
 ```
 
 It **will**:
@@ -82,9 +84,11 @@ Javascript:
 ```js
 const wmverifier = require('webmention-verifier');
 
-const res = wmverifier('https://www.example.com/some-post', 'https://www.duckduckgo.com');
+module.exports = async function() {
+  const res = await wmverifier('https://www.example.com/some-post', 'https://www.duckduckgo.com');
 
-console.log(res);
+  console.log(res);
+}
 /* Output
 {
   statusCode: 200,
