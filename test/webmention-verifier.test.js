@@ -109,6 +109,16 @@ describe('webmention-verifier', function() {
     assert.equal(actual.webmention.author.name,"Virginia Woolf");
   });
 
+  it('should find webmention with no microformats', async function() {
+    const data = fs.readFileSync('./test/data/no-microformats.html');
+    const scope = nock('https://www.example.com')
+      .get('/post.html')
+      .reply(200, data);
+    const actual = await verifier('https://www.example.com/post.html','https://www.duckduckgo.com');
+    console.log(actual);
+    assert.equal(actual.webmention.hasOwnProperty("mention-of"),true);
+  });
+
 // LIVE TESTS, MAY BEGIN TO FAIL SOMEDAY
   it('should find author as Webmention Rocks!', async function() {
     const actual = await verifier('https://gregorlove.com/2021/05/i-have-been-using-sublime/','https://www.timculverhouse.com/articles/2021-05-21-text-editors.html');

@@ -83,8 +83,7 @@ it('should parse u-in-reply-to with an rsvp', function() {
 it('return an mf2 object with property links', function() {
     const testHtml = '<div><a href="https://www.duckduckgo.com">DuckDuckGo</a><a href="/another-link">Link</a></div>';
     const res = parser.jf2(testHtml,'https://www.duckduckgo.com');
-    console.log(res);
-    assert.equal(res.link.includes("https://www.duckduckgo.com"),true);
+    assert.equal(res["mention-of"].includes("https://www.duckduckgo.com"),true);
   });
 
 });

@@ -55,14 +55,6 @@ describe('util.findTarget()', function() {
     assert.equal(res.mention["wm-property"], 'bookmark-of');
   });
 
-  it('should find mention-of', function() {
-    const jf2 = {"content": {"html": "<a href=\"https:\/\/www.duckduckgo.com\">duckduckgo</a>"}};
-    const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
-    assert.equal(res.targetInSource, true);
-    assert.equal(res.mention["mention-of"], 'https://www.duckduckgo.com');
-    assert.equal(res.mention["wm-property"], 'mention-of');
-  });
-
   it('should find arbitrary', function() {
     const jf2 = {"arbitrary": "https://www.duckduckgo.com","content": {"html": "<a href=\"https:\/\/www.duckduckgo.com\" class=\"u-arbitrary\">duckduckgo</a>"}};;
     const res = util.findTarget(jf2, 'https://www.duckduckgo.com');
