@@ -21,8 +21,8 @@ It **will**:
 - ✅ Verify that `source` and `target` are valid URLs ([must](https://www.w3.org/TR/webmention/#request-verification-p-1))
 - ✅ Reject the request if `source` and `target` are not the same URL ([must](https://www.w3.org/TR/webmention/#request-verification-p-2))
 - ✅ Perform a `GET` request on `source` **and** confirm `source` mentions `target` ([must](https://www.w3.org/TR/webmention/#request-verification-p-2))
-- ✅ Handle arbitrary microformats (IE `<a class="u-arbitrary" href="http://your-site.com>`)
-- ✅ Handle source's with no microformats (added in v1.1)
+- ✅ Handle arbitrary microformats (IE `<a class="u-arbitrary" href="http://your-site.com">`)
+- ✅ Handle sources with no microformats (added in v1.1)
 
 
 It **can**: 
