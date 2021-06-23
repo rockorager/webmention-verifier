@@ -51,6 +51,7 @@ The webmention will be a [JF2](https://jf2.spec.indieweb.org/) object, which wil
 - `wm-source`: Equal to `source`
 - `wm-target`: Equal to `target`
 - `wm-property`: Equal to the type of webmention ("in-reply-to","like-of","arbitrary-value")
+- `wm-verified`: The date-time the webmention was verified
 
 ### Synchronous vs Asynchronous processing
 This verifier does all it's check synchronously. This is not recommended by the spec, but it is not capable of knowing how to form a location URL for you to respond to the sender with. So it doesn't do that.
@@ -102,7 +103,7 @@ console.log(res);
     'wm-property': 'in-reply-to',
     'wm-target': 'https://www.duckduckgo.com',
     'wm-source': 'https://www.example.com/post.html',
-    'wm-received': '2021-06-22T14:28:25.229Z',
+    'wm-verified': '2021-06-22T14:28:25.229Z',
     author: {
       type: 'card',
       url: 'https://www.example.com/virginia-woolf.html',
@@ -134,7 +135,7 @@ console.log(res);
 2. Store your webmention somewhere
   A database, a file, anywhere.
 3. Check if the received webmention already exists, and act accordingly
-  In theory, there should only be a single combination of `target` and `source`, so if you already have a mention to a `target` from a `source`, the newly received mention for that combination could be an update, a deletion, or a duplicate send. Don't store two, find the existing mention and act accordingly
+  In theory, there should only be a single combination of `target` and `source`, so if you already have a mention to a `target` from a `source`, the newly received mention for that combination could be an update, a deletion, or a duplicate send. Don't store two, find the existing mention and act accordingly. I recommend adding a property on the first receipt of a webmention for `wm-received`, the date-time the webmention was *first* received. Webmention-verifier will update `wm-verified` every time the webmention is verified, which could be frequently depending on how senders send webmentions.
 4. Return the statusCode and body to the sender
 
 ## Future Features
