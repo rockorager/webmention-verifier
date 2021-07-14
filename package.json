@@ -26,15 +26,15 @@
   "homepage": "https://github.com/rockorager/webmention-verifier#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "cheerio": "^0.22.0",
-    "microformat-node": "^2.0.1",
+    "microformats-parser": "^1.4.0",
+    "parse5": "^6.0.1",
     "representative-h-card": "^1.0.0",
     "url": "^0.11.0"
   },
   "devDependencies": {
     "fs": "0.0.1-security",
     "jshint": "^2.13.0",
-    "mocha": "^9.0.0",
-    "nock": "^13.1.0"
+    "mocha": "^9.0.2",
+    "nock": "^13.1.1"
   }
 }

@@ -23,7 +23,7 @@ describe('parser()', function() {
         <img class="u-photo" src="images/photo.gif"/>
       </div>
     `;
-
+    parser.htmlSearch(testHtml);
     const actual = parser.jf2(testHtml,'http://example.org');
     assert.deepEqual(actual.children[0],expected);
   });
@@ -46,8 +46,7 @@ describe('parser()', function() {
       { 
         "arbitrary": "https://www.duckduckgo.com",
         "name": "DuckDuckGo",
-        "type": "entry",
-        "url": "https://www.duckduckgo.com"
+        "type": "entry"
       }`);
     const testHtml = '<div class="h-entry"><a class="u-arbitrary" href="https://www.duckduckgo.com">DuckDuckGo</a></div>';
     const actual = parser.jf2(testHtml,'https://www.duckduckgo.com');
@@ -59,7 +58,7 @@ describe('parser()', function() {
       { 
         "arbitrary": "https://www.duckduckgo.com",
         "type": "entry",
-        "photo": "https://www.duckduckgo.com"
+        "name": ""
       }`);
     const testHtml = '<div class="h-entry"><img class="u-arbitrary" src="https://www.duckduckgo.com"></div>';
     const actual = parser.jf2(testHtml,'https://www.duckduckgo.com');
@@ -70,9 +69,7 @@ it('should parse u-in-reply-to with an rsvp', function() {
     expected = JSON.parse(`
       { 
         "in-reply-to": "https://www.duckduckgo.com",
-        "name": "DuckDuckGo",
         "type": "entry",
-        "url": "https://www.duckduckgo.com",
         "rsvp": "yes"
       }`);
     const testHtml = '<div class="h-entry"><a class="u-in-reply-to" href="https://www.duckduckgo.com">DuckDuckGo</a><data class="p-rsvp" value="yes"></data></div>';
